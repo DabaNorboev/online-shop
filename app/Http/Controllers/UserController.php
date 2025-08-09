@@ -2,27 +2,21 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\SignUpRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
 class UserController
 {
-    public function signUpForm(Request $request)
+    public function signUpForm()
     {
         return view('signUp');
     }
 
-    public function signUp(Request $request)
+    public function signUp(SignUpRequest $request)
     {
-        $data = $request->validate([
-            'first_name' => 'required|max:255',
-            'last_name' => 'required|max:255',
-            'email' => 'required|email|unique:users|max:255',
-            'password' => 'required|min:6|confirmed|max:255',
-            'password_confirmation' => 'required',
-        ]);
-
+        $data = $request->all();
         User::query()->create([
             'first_name' => $data['first_name'],
             'last_name' => $data['last_name'],
@@ -30,10 +24,10 @@ class UserController
             'password' => Hash::make($data['password']),
         ]);
 
-        return redirect()->route('main');
+        return redirect()->route('login.form');
     }
 
-    public function loginForm(Request $request)
+    public function loginForm()
     {
         return view('login');
     }
