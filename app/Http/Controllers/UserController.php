@@ -2,14 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\LoginRequest;
 use App\Http\Requests\SignUpRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class UserController
 {
-    public function signUpForm()
+    public function getSignUp()
     {
         return view('signUp');
     }
@@ -27,17 +29,23 @@ class UserController
         return redirect()->route('login.form');
     }
 
-    public function loginForm()
+    public function getLogin()
     {
         return view('login');
     }
 
-    public function login(Request $request)
+    public function login(LoginRequest $request)
     {
+        $result = Auth::attempt([
+            'email' => $request->get('email'),
+            'password' => $request->get('password')
+        ]);
 
+        return redirect()->route('main');
     }
 
-    public function main(Request $request) {
-        return view('main');
+    public function logout()
+    {
+        Auth::logout();
     }
 }
