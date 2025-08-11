@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Product;
-use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
@@ -27,6 +26,7 @@ class ProductController extends Controller
         }
         $counter = count($products);
 
-        return view('catalog')->with(['products' => $products, 'categories' => $categories, 'categoryName' => $categoryName, 'counter' => $counter]);
+        return view('catalog')->with(['products' => $products, 'categories' => $categories,
+            'categoryName' => $categoryName, 'counter' => $counter]);
     }
 }

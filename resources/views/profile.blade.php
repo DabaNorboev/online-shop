@@ -8,6 +8,14 @@
             margin: 20px auto;
             padding: 0 20px;
         }
+        .form-container {
+            display: flex;
+            gap: 10px;
+        }
+        .form-container section {
+            flex: 1;               /* Равномерное распределение ширины */
+            min-width: 0;
+        }
         h1, h2 {
             color: #2c3e50;
         }
@@ -19,17 +27,6 @@
             align-items: center;
             gap: 20px;
             margin-bottom: 20px;
-        }
-        .avatar {
-            width: 80px;
-            height: 80px;
-            border-radius: 50%;
-            background-color: #ddd;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 24px;
-            color: #555;
         }
         .user-info {
             flex: 1;
@@ -86,6 +83,9 @@
             border: 1px solid #ddd;
             border-radius: 4px;
         }
+        .alert {
+            color: red;
+        }
     </style>
 @endsection
 
@@ -93,52 +93,85 @@
 <div class="container">
     <section class="profile-section">
         <div class="profile-header">
-            <div class="avatar">ИИ</div>
             <div class="user-info">
-                <h2>Иван Иванов</h2>
-                <p>Пользователь с 15.03.2023</p>
+                <h2>{{ $user->first_name }} {{ $user->last_name }}</h2>
+                <p>Пользователь с {{ $user->created_at }}</p>
             </div>
         </div>
     </section>
 
-    <section class="profile-section">
-        <h2>Личные данные</h2>
-        <form>
-            <div class="form-group">
-                <label for="last_name">Фамилия</label>
-                <input type="text" id="last_name" value="last_name">
-            </div>
-            <div class="form-group">
-                <label for="first_name">Имя</label>
-                <input type="text" id="first_name" value="first_name">
-            </div>
-            <div class="form-group">
-                <label for="email">Email</label>
-                <input type="email" id="email" value="email@email.com">
-            </div>
-            <button type="submit" class="btn">Сохранить изменения</button>
-        </form>
-    </section>
+    <div class="form-container">
+        <section class="profile-section">
+            <h2>Личные данные</h2>
+            <form action="{{ route('profile.update') }}" method="POST">
+                @method('PUT')
+                @csrf
+                <div class="form-group">
+                    <label for="last_name">Фамилия</label>
+                    <input type="text" id="last_name" name="last_name" value="{{ $user->last_name }}">
+                    @error('last_name')
+                    <span class="alert">{{ $message }}</span>
+                    @enderror
+                </div>
+                <div class="form-group">
+                    <label for="first_name">Имя</label>
+                    <input type="text" id="first_name" name="first_name" value="{{ $user->first_name }}">
+                    @error('first_name')
+                    <span class="alert">{{ $message }}</span>
+                    @enderror
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" value="{{ $user->email }}">
+                    @error('email')
+                    <span class="alert">{{ $message }}</span>
+                    @enderror
+                </div>
+                <button type="submit" class="btn">Сохранить изменения</button>
+            </form>
+        </section>
+        <section class="profile-section">
+            <h2>Безопасность</h2>
+            <form action="{{ route('profile.update.password') }}" method="POST">
+                @method('PUT')
+                @csrf
+                <div class="form-group">
+                    <label for="old_password">Текущий пароль</label>
+                    <input type="password" id="old_password" name="old_password" required>
+                    @error('old_password')
+                    <span class="alert">{{ $message }}</span>
+                    @enderror
+                </div>
+                <div class="form-group">
+                    <label for="password">Новый пароль</label>
+                    <input type="password" id="password" name="password" required>
+                    @error('password')
+                    <span class="alert">{{ $message }}</span>
+                    @enderror
+                </div>
+                <div class="form-group">
+                    <label for="password_confirmation">Подтверждение пароля</label>
+                    <input type="password" id="password_confirmation" name="password_confirmation" required>
+                    @error('password_confirmation')
+                    <span class="alert">{{ $message }}</span>
+                    @enderror
+                </div>
+                <button type="submit" class="btn">Изменить пароль</button>
+            </form>
+        </section>
+    </div>
 
     <section class="profile-section">
         <h2>Мои заказы</h2>
         <div class="orders-list">
+            @foreach($orders as $order)
             <div class="order-item">
-                <h3>Заказ #12345 от 12.04.2023</h3>
-                <p>3 товара на сумму 12 450 ₽</p>
-                <p>Статус: <span class="order-status status-completed">Выполнен</span></p>
+                <h3>Заказ #{{ $order->id }} от {{ $order->created_at }}</h3>
+                    <p>__ товара на сумму __₽</p>
+                    <p>Статус: <span class="order-status status-completed">__</span></p>
             </div>
-            <div class="order-item">
-                <h3>Заказ #12340 от 28.03.2023</h3>
-                <p>1 товар на сумму 5 990 ₽</p>
-                <p>Статус: <span class="order-status status-processing">В обработке</span></p>
-            </div>
+            @endforeach
         </div>
-    </section>
-
-    <section class="profile-section">
-        <h2>Безопасность</h2>
-        <a href="change-password.html" class="btn">Изменить пароль</a>
     </section>
 </div>
 @endsection

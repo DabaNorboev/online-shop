@@ -17,8 +17,11 @@ Route::get('/logout', [UserController::class, 'logout'])->name('logout')->middle
 
 Route::view('/about' , 'about')->name('about')->middleware('auth');
 
-Route::get('/main', [ProductController::class, 'getMain'])->name('main')->middleware('auth');
 Route::get('/profile', [UserController::class, 'getProfile'])->name('profile')->middleware('auth');
+Route::put('/profile/update', [UserController::class, 'updateProfile'])->name('profile.update')->middleware('auth');
+Route::put('/profile/password', [UserController::class, 'updatePassword'])->name('profile.update.password')->middleware('auth');
+
+Route::get('/main', [ProductController::class, 'getMain'])->name('main')->middleware('auth');
 Route::get('/catalog/{categoryName?}', [ProductController::class, 'getCatalog'])->name('catalog')->middleware('auth');
 
 
