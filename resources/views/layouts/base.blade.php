@@ -101,7 +101,7 @@
 
             <div class="nav-links">
                 <a href="{{ route('main') }}">Главная</a>
-                <a href="#">Каталог</a>
+                <a href="{{ route('catalog') }}">Каталог</a>
                 <a href="{{ route('about') }}">О нас</a>
                 <a href="{{ route('profile') }}">Профиль</a>
             </div>

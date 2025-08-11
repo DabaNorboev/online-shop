@@ -105,20 +105,16 @@
         <h2>Личные данные</h2>
         <form>
             <div class="form-group">
-                <label for="name">ФИО</label>
-                <input type="text" id="name" value="Иван Иванович Иванов">
+                <label for="last_name">Фамилия</label>
+                <input type="text" id="last_name" value="last_name">
+            </div>
+            <div class="form-group">
+                <label for="first_name">Имя</label>
+                <input type="text" id="first_name" value="first_name">
             </div>
             <div class="form-group">
                 <label for="email">Email</label>
-                <input type="email" id="email" value="ivanov@example.com">
-            </div>
-            <div class="form-group">
-                <label for="phone">Телефон</label>
-                <input type="tel" id="phone" value="+7 (912) 345-67-89">
-            </div>
-            <div class="form-group">
-                <label for="address">Адрес доставки</label>
-                <input type="text" id="address" value="г. Москва, ул. Примерная, д. 123, кв. 456">
+                <input type="email" id="email" value="email@email.com">
             </div>
             <button type="submit" class="btn">Сохранить изменения</button>
         </form>
@@ -131,13 +127,6 @@
                 <h3>Заказ #12345 от 12.04.2023</h3>
                 <p>3 товара на сумму 12 450 ₽</p>
                 <p>Статус: <span class="order-status status-completed">Выполнен</span></p>
-                <a href="#" class="btn">Повторить заказ</a>
-            </div>
-            <div class="order-item">
-                <h3>Заказ #12344 от 05.04.2023</h3>
-                <p>2 товара на сумму 8 790 ₽</p>
-                <p>Статус: <span class="order-status status-completed">Выполнен</span></p>
-                <a href="#" class="btn">Повторить заказ</a>
             </div>
             <div class="order-item">
                 <h3>Заказ #12340 от 28.03.2023</h3>

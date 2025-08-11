@@ -106,7 +106,7 @@
         <div class="hero-content">
             <h1>Добро пожаловать в наш магазин</h1>
             <p>Лучшие товары по доступным ценам с быстрой доставкой по всей стране</p>
-            <a href="#" class="btn btn-primary" style="background-color: white; color: #4a90e2;">Перейти в каталог</a>
+            <a href="{{ route('catalog') }}" class="btn btn-primary" style="background-color: white; color: #4a90e2;">Перейти в каталог</a>
         </div>
     </section>
 
@@ -116,18 +116,22 @@
             <h2 class="section-title">Популярные товары</h2>
 
             <div class="product-grid">
-                <!-- Пример товара 1 -->
-                <div class="product-card">
-                    <div class="product-img">
-                        <img src="images/product1.jpg" alt="Смартфон" style="max-width: 100%; max-height: 100%; object-fit: cover;">
+
+                @foreach($products as $product)
+                    <!-- Пример товара -->
+                    <div class="product-card">
+                        <div class="product-img">
+                            <img src="{{ $product->name }}" alt="{{ $product->name }}" style="max-width: 100%; max-height: 100%; object-fit: cover;">
+                        </div>
+                        <div class="product-info">
+                            <h3>{{ $product->name }}</h3>
+                            <div class="product-price">{{ $product->price }} ₽</div>
+                            <div class="product-price">{{ $product->discount }} %</div>
+{{--                            <div class="product-rating">★★★★☆</div>--}}
+                            <button class="add-to-cart">В корзину</button>
+                        </div>
                     </div>
-                    <div class="product-info">
-                        <h3>Смартфон XYZ 10 Pro</h3>
-                        <div class="product-price">34 990 ₽</div>
-                        <div class="product-rating">★★★★☆</div>
-                        <button class="add-to-cart">В корзину</button>
-                    </div>
-                </div>
+                @endforeach
 
             </div>
         </div>
