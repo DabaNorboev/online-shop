@@ -14,6 +14,9 @@ class Product extends Model
     {
         $price = $this->price;
         $discount = $this->discount;
+        if ($discount === 0){
+            return $price;
+        }
         return $price * (100 - $discount) / 100;
     }
     public function calculateDiscountValue(): float

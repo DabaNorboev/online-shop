@@ -7,8 +7,8 @@
         a {
             text-decoration: none;
             color: black;
-            font-size: larger;
-            font-weight: bolder;
+            font-size: large;
+            font-weight: bold;
             text-align: center;
         }
         .container {
@@ -83,6 +83,8 @@
         background: none;
         border: none;
         cursor: pointer;
+        font-weight: normal;
+        font-size: medium;
         }
         .summary-row {
         display: flex;
@@ -132,16 +134,6 @@
         .continue-shopping {
         margin-top: 20px;
         }
-        .promo-code {
-        margin: 20px 0;
-        }
-        .promo-input {
-        width: 100%;
-        padding: 8px;
-        border: 1px solid #ddd;
-        border-radius: 4px;
-        margin-top: 5px;
-        }
     </style>
 @endsection
 
@@ -161,11 +153,20 @@
                             <div class="item-price">{{ $userProduct->getTotalDiscountedPrice() }} ₽</div>
                             <div class="item-actions">
                                 <div class="quantity-control">
-                                    <a href="" class="quantity-btn">-</a>
+                                    <form action="{{ route('cart.decrease', $userProduct) }}" method="POST">
+                                        @csrf @method('PATCH')
+                                        <button class="quantity-btn" type="submit">-</button>
+                                    </form>
                                     <input type="text" class="quantity-input" value="{{ $userProduct->quantity }}">
-                                    <a href="" class="quantity-btn">+</a>
+                                    <form action="{{ route('cart.increase', $userProduct) }}" method="POST">
+                                        @csrf @method('PATCH')
+                                        <button class="quantity-btn" type="submit">+</button>
+                                    </form>
                                 </div>
-                                <button class="remove-btn">Удалить</button>
+                                <form action="{{ route('cart.delete', $userProduct->id) }}" method="POST">
+                                    @csrf @method('DELETE')
+                                    <button type="submit" class="remove-btn">Удалить</button>
+                                </form>
                             </div>
                         </div>
                     </div>

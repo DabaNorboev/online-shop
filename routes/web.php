@@ -28,5 +28,7 @@ Route::get('/main', [ProductController::class, 'getMain'])->name('main')->middle
 Route::get('/catalog/{categoryName?}', [ProductController::class, 'getCatalog'])->name('catalog')->middleware('auth');
 
 Route::get('/cart', [CartController::class, 'getCart'])->name('cart')->middleware('auth');
-
-
+Route::post('/cart/add/{productId}', [CartController::class, 'add'])->name('cart.add')->middleware('auth');
+Route::delete('/cart/{productId}', [CartController::class, 'delete'])->name('cart.delete')->middleware('auth');
+Route::patch('/cart/{userProduct}/increase', [CartController::class, 'increase'])->name('cart.increase')->middleware('auth');
+Route::patch('/cart/{userProduct}/decrease', [CartController::class, 'decrease'])->name('cart.decrease')->middleware('auth');

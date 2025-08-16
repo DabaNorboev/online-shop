@@ -11,6 +11,12 @@
         h1, h2, h3 {
             color: #2c3e50;
         }
+        .product-actions a {
+            text-decoration: none;
+            background: white;
+            border: 1px solid #4a90e2;
+            color: #4a90e2;
+        }
         .catalog-header {
             display: flex;
             justify-content: space-between;
@@ -157,11 +163,14 @@
         <div class="product-card">
             <div class="product-image">{{ $product->name }}</div>
             <h3>{{ $product->name }}</h3>
-            <div class="product-price">{{ $product->price }} ₽</div>
+            <div class="product-price">{{ number_format($product->calculateDiscountedPrice(), 0, '', ' ') }} ₽</div>
             <div class="product-price">{{ $product->discount }} %</div>
             <div class="product-actions">
-                <button class="btn btn-primary">В корзину</button>
-                <button class="btn btn-outline">Подробнее</button>
+                <form action="{{ route('cart.add', $product->id) }}" method="POST">
+                    @csrf
+                    <button class="btn btn-primary">В корзину</button>
+                </form>
+                <a href="" class="btn-outline">Подробнее</a>
             </div>
         </div>
         @endforeach
