@@ -4,6 +4,7 @@
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ProfileController;
+use \App\Http\Controllers\CartController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -25,5 +26,7 @@ Route::put('/profile/password', [ProfileController::class, 'updatePassword'])->n
 
 Route::get('/main', [ProductController::class, 'getMain'])->name('main')->middleware('auth');
 Route::get('/catalog/{categoryName?}', [ProductController::class, 'getCatalog'])->name('catalog')->middleware('auth');
+
+Route::get('/cart', [CartController::class, 'getCart'])->name('cart')->middleware('auth');
 
 

@@ -13,7 +13,8 @@ class ProfileController extends Controller
 {
     public function getProfile()
     {
-        $user = User::query()->find(Auth::id());
+        /** @var User $user */
+        $user = Auth::user();
 
         $orders = Order::query()->where('user_id', $user->id)->get();
 
@@ -22,7 +23,8 @@ class ProfileController extends Controller
 
     public function updateProfile(UpdateProfileRequest $request)
     {
-        $user = User::query()->findOrFail(Auth::id());
+        /** @var User $user */
+        $user = Auth::user();
 
         $user->update([
             'first_name' => $request['first_name'],
@@ -35,7 +37,8 @@ class ProfileController extends Controller
 
     public function updatePassword(UpdatePasswordRequest $request)
     {
-        $user = User::query()->findOrFail(Auth::id());
+        /** @var User $user */
+        $user = Auth::user();
 
         if (!Hash::check($request['old_password'], $user->password)) {
             return redirect()->back()->withErrors('Текущий пароль указан не верно');
