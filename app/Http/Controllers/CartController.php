@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Product;
 use App\Models\User;
 use App\Models\UserProduct;
 use Illuminate\Support\Facades\Auth;
@@ -73,6 +72,9 @@ class CartController extends Controller
     {
         if ($userProduct->quantity > 1) {
             $userProduct->decrement('quantity');
+        }
+        elseif ($userProduct->quantity === 1) {
+            $userProduct->delete();
         }
 
         return redirect()->back();

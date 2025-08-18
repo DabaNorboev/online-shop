@@ -16,9 +16,9 @@ class ProfileController extends Controller
         /** @var User $user */
         $user = Auth::user();
 
-        $orders = Order::query()->where('user_id', $user->id)->get();
+        $orders = Order::query()->where('user_id', $user->id)->with(['orderItems.product', 'status'])->get();
 
-        return view('profile')->with(['user' => $user, 'orders' => $orders]);
+        return view('profile')->with(['orders' => $orders, 'user' => $user]);
     }
 
     public function updateProfile(UpdateProfileRequest $request)
@@ -41,7 +41,7 @@ class ProfileController extends Controller
         $user = Auth::user();
 
         if (!Hash::check($request['old_password'], $user->password)) {
-            return redirect()->back()->withErrors('Текущий пароль указан не верно');
+            return redirect()->back();
         }
 
         $user->update([

@@ -13,7 +13,7 @@ class ProductController extends Controller
         return view('main')->with('products', $products);
     }
 
-    public function getCatalog($categoryName = null)
+    public function getCatalog(string $categoryName = null)
     {
         $categories = Category::all();
 
