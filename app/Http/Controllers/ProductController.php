@@ -12,10 +12,10 @@ class ProductController extends Controller
     public function getMain()
     {
         $products = Product::all();
-        return view('main')->with('products', $products);
+        return view('pages.main')->with('products', $products);
     }
 
-    public function getCatalog(string $categoryName = null)
+    public function index(string $categoryName = null)
     {
         $categories = Category::all();
 
@@ -28,7 +28,7 @@ class ProductController extends Controller
         }
         $counter = count($products);
 
-        return view('catalog')->with(['products' => $products, 'categories' => $categories,
+        return view('products.index')->with(['products' => $products, 'categories' => $categories,
             'categoryName' => $categoryName, 'counter' => $counter]);
     }
 
@@ -38,6 +38,6 @@ class ProductController extends Controller
 
         $userProduct = UserProduct::query()->where(['user_id' => Auth::id(), 'product_id' => $productId])->first();
 
-        return view('product')->with(['product' => $product, 'userProduct' => $userProduct]);
+        return view('products.product')->with(['product' => $product, 'userProduct' => $userProduct]);
     }
 }

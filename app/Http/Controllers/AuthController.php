@@ -10,12 +10,12 @@ use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
-    public function getSignUp()
+    public function getRegister()
     {
-        return view('signUp');
+        return view('auth.register');
     }
 
-    public function signUp(SignUpRequest $request)
+    public function register(SignUpRequest $request)
     {
         User::query()->create([
             'first_name' => $request['first_name'],
@@ -29,7 +29,7 @@ class AuthController extends Controller
 
     public function getLogin()
     {
-        return view('login');
+        return view('auth.login');
     }
 
     public function login(LoginRequest $request)
@@ -46,6 +46,6 @@ class AuthController extends Controller
     {
         Auth::logout();
 
-        return redirect()->route('login');
+        return redirect()->route('login.form');
     }
 }

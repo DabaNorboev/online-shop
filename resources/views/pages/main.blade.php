@@ -1,4 +1,4 @@
-@extends('layouts.base')
+@extends('layouts.app')
 @section('title', 'Главная')
 @section('style')
     <style>
@@ -106,7 +106,8 @@
         <div class="hero-content">
             <h1>Добро пожаловать в наш магазин</h1>
             <p>Лучшие товары по доступным ценам с быстрой доставкой по всей стране</p>
-            <a href="{{ route('catalog') }}" class="btn btn-primary" style="background-color: white; color: #4a90e2;">Перейти в каталог</a>
+            <a href="{{ route('catalog') }}" class="btn btn-primary" style="background-color: white; color: #4a90e2;">Перейти
+                в каталог</a>
         </div>
     </section>
 
@@ -122,15 +123,16 @@
                     <div class="product-card">
                         <div class="product-img">
                             <a href="{{ route('product', $product->id) }}">
-                                <img src="{{ $product->name }}" alt="{{ $product->name }}" style="max-width: 100%; max-height: 100%; object-fit: cover;">
+                                <img src="{{ $product->name }}" alt="{{ $product->name }}"
+                                     style="max-width: 100%; max-height: 100%; object-fit: cover;">
                             </a>
                         </div>
                         <div class="product-info">
                             <h3>{{ $product->name }}</h3>
                             <div class="product-price">{{ $product->price }} ₽</div>
                             <div class="product-price">{{ $product->discount }} %</div>
-{{--                            <div class="product-rating">★★★★☆</div>--}}
-                            <form action="{{ route('product.add', $product->id) }}" method="POST">
+                            {{--                            <div class="product-rating">★★★★☆</div>--}}
+                            <form action="{{ route('cart.items.add', $product->id) }}" method="POST">
                                 @csrf
                                 <button class="add-to-cart" type="submit">В корзину</button>
                             </form>

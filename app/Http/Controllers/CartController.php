@@ -6,13 +6,11 @@ use App\Http\Requests\AddToCartRequest;
 use App\Http\Requests\ChangeCartQuantityRequest;
 use App\Models\User;
 use App\Models\UserProduct;
-
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class CartController extends Controller
 {
-    public function getCart()
+    public function index()
     {
         /** @var User $user */
         $user = Auth::user();
@@ -29,11 +27,11 @@ class CartController extends Controller
             return $userProduct->getTotalDiscountedPrice();
         });
 
-        return view('cart')->with(['userProducts' => $userProducts, 'discountedTotalPrice' => $discountedTotalPrice,
+        return view('cart.index')->with(['userProducts' => $userProducts, 'discountedTotalPrice' => $discountedTotalPrice,
             'totalDiscount' => $totalDiscount, 'totalQuantity' => $totalQuantity, 'totalPrice' => $totalPrice]);
     }
 
-    public function add(AddToCartRequest $request, int $id)
+    public function addItem(AddToCartRequest $request, int $id)
     {
 
         /** @var User $user */
@@ -55,7 +53,7 @@ class CartController extends Controller
         return redirect()->back();
     }
 
-    public function update(ChangeCartQuantityRequest $request, int $id)
+    public function updateItem(ChangeCartQuantityRequest $request, int $id)
     {
         /** @var User $user */
         $user = Auth::user();
@@ -80,7 +78,7 @@ class CartController extends Controller
         return redirect()->back();
     }
 
-    public function increase(int $id)
+    public function increaseItem(int $id)
     {
         /** @var User $user */
         $user = Auth::user();
@@ -98,7 +96,7 @@ class CartController extends Controller
         return redirect()->back();
     }
 
-    public function decrease(int $id)
+    public function decreaseItem(int $id)
     {
         /** @var User $user */
         $user = Auth::user();
@@ -115,7 +113,7 @@ class CartController extends Controller
         return redirect()->back();
     }
 
-    public function delete(int $id)
+    public function deleteItem(int $id)
     {
         /** @var User $user */
         $user = Auth::user();

@@ -1,4 +1,4 @@
-@extends('layouts.base')
+@extends('layouts.app')
 
 @section('title', 'О нас')
 
@@ -9,21 +9,26 @@
             margin: 20px auto;
             padding: 0 20px;
         }
+
         h1, h2 {
             color: #2c3e50;
         }
+
         .about-section {
             margin-bottom: 40px;
         }
+
         .team {
             display: flex;
             flex-wrap: wrap;
             gap: 20px;
         }
+
         .team-member {
             width: calc(50% - 10px);
             margin-bottom: 20px;
         }
+
         @media (max-width: 600px) {
             .team-member {
                 width: 100%;

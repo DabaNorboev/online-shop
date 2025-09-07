@@ -11,17 +11,17 @@ use Illuminate\Support\Facades\Hash;
 
 class ProfileController extends Controller
 {
-    public function getProfile()
+    public function index()
     {
         /** @var User $user */
         $user = Auth::user();
 
         $orders = Order::query()->where('user_id', $user->id)->with(['orderItems.product', 'status'])->get();
 
-        return view('profile')->with(['orders' => $orders, 'user' => $user]);
+        return view('pages.profile')->with(['orders' => $orders, 'user' => $user]);
     }
 
-    public function updateProfile(UpdateProfileRequest $request)
+    public function update(UpdateProfileRequest $request)
     {
         /** @var User $user */
         $user = Auth::user();

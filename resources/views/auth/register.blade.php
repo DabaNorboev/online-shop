@@ -1,4 +1,4 @@
-@extends('layouts.authBase')
+@extends('layouts.auth')
 @section('style')
     <style>
         .register-btn {
@@ -49,7 +49,7 @@
         <h1>Регистрация</h1>
         <p>Создайте аккаунт для совершения покупок</p>
     </div>
-    <form class="auth-form" method="POST" action="{{ route('signup') }}">
+    <form class="auth-form" method="POST" action="{{ route('register') }}">
         @csrf
 
         <div class="form-row">
