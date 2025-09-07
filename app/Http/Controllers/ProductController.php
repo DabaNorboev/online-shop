@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Product;
+use App\Models\UserProduct;
+use Illuminate\Support\Facades\Auth;
 
 class ProductController extends Controller
 {
@@ -28,5 +30,14 @@ class ProductController extends Controller
 
         return view('catalog')->with(['products' => $products, 'categories' => $categories,
             'categoryName' => $categoryName, 'counter' => $counter]);
+    }
+
+    public function getProduct(int $productId)
+    {
+        $product = Product::query()->findOrFail($productId);
+
+        $userProduct = UserProduct::query()->where(['user_id' => Auth::id(), 'product_id' => $productId])->first();
+
+        return view('product')->with(['product' => $product, 'userProduct' => $userProduct]);
     }
 }

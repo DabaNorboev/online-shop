@@ -121,14 +121,19 @@
                     <!-- Пример товара -->
                     <div class="product-card">
                         <div class="product-img">
-                            <img src="{{ $product->name }}" alt="{{ $product->name }}" style="max-width: 100%; max-height: 100%; object-fit: cover;">
+                            <a href="{{ route('product', $product->id) }}">
+                                <img src="{{ $product->name }}" alt="{{ $product->name }}" style="max-width: 100%; max-height: 100%; object-fit: cover;">
+                            </a>
                         </div>
                         <div class="product-info">
                             <h3>{{ $product->name }}</h3>
                             <div class="product-price">{{ $product->price }} ₽</div>
                             <div class="product-price">{{ $product->discount }} %</div>
 {{--                            <div class="product-rating">★★★★☆</div>--}}
-                            <button class="add-to-cart">В корзину</button>
+                            <form action="{{ route('product.add', $product->id) }}" method="POST">
+                                @csrf
+                                <button class="add-to-cart" type="submit">В корзину</button>
+                            </form>
                         </div>
                     </div>
                 @endforeach

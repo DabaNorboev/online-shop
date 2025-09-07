@@ -140,15 +140,15 @@
         <div>Найдено товаров {{ $counter }}</div>
     </div>
 
-    <div class="search-sort">
-        <input type="text" class="search-box" placeholder="Поиск товаров...">
-        <select class="sort-select">
-            <option>Сортировка: по популярности</option>
-            <option>По цене (сначала дешевые)</option>
-            <option>По цене (сначала дорогие)</option>
-            <option>По новизне</option>
-        </select>
-    </div>
+{{--    <div class="search-sort">--}}
+{{--        <input type="text" class="search-box" placeholder="Поиск товаров...">--}}
+{{--        <select class="sort-select">--}}
+{{--            <option>Сортировка: по популярности</option>--}}
+{{--            <option>По цене (сначала дешевые)</option>--}}
+{{--            <option>По цене (сначала дорогие)</option>--}}
+{{--            <option>По новизне</option>--}}
+{{--        </select>--}}
+{{--    </div>--}}
 
     <div class="categories">
         <a href="{{ route('catalog') }}" class="category {{ $categoryName === null ? 'active' : ''}}">Все</a>
@@ -161,28 +161,32 @@
         <!-- Товар 1 -->
         @foreach($products as $product)
         <div class="product-card">
-            <div class="product-image">{{ $product->name }}</div>
+            <div class="product-image">
+                <a href="{{ route('product', $product->id) }}">
+                    <img src="{{ $product->name }}" alt="{{ $product->name }}" style="max-width: 100%; max-height: 100%; object-fit: cover;">
+                </a>
+            </div>
             <h3>{{ $product->name }}</h3>
             <div class="product-price">{{ number_format($product->calculateDiscountedPrice(), 0, '', ' ') }} ₽</div>
             <div class="product-price">{{ $product->discount }} %</div>
             <div class="product-actions">
-                <form action="{{ route('cart.add', $product->id) }}" method="POST">
+                <form action="{{ route('product.add', $product->id) }}" method="POST">
                     @csrf
                     <button class="btn btn-primary">В корзину</button>
                 </form>
-                <a href="" class="btn-outline">Подробнее</a>
+                <a href="{{ route('product', $product->id) }}" class="btn-outline">Подробнее</a>
             </div>
         </div>
         @endforeach
     </div>
 
-    <div class="pagination">
-        <a href="#" class="page-link">1</a>
-        <a href="#" class="page-link active">2</a>
-        <a href="#" class="page-link">3</a>
-        <a href="#" class="page-link">4</a>
-        <a href="#" class="page-link">5</a>
-        <a href="#" class="page-link">→</a>
-    </div>
+{{--    <div class="pagination">--}}
+{{--        <a href="#" class="page-link">1</a>--}}
+{{--        <a href="#" class="page-link active">2</a>--}}
+{{--        <a href="#" class="page-link">3</a>--}}
+{{--        <a href="#" class="page-link">4</a>--}}
+{{--        <a href="#" class="page-link">5</a>--}}
+{{--        <a href="#" class="page-link">→</a>--}}
+{{--    </div>--}}
 </div>
 @endsection
