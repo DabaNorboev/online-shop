@@ -1,145 +1,56 @@
 @extends('layouts.app')
 @section('title', 'Главная')
-@section('style')
-    <style>
-        .hero {
-            background: linear-gradient(135deg, #4a90e2, #6a5acd);
-            color: white;
-            padding: 4rem 2rem;
-            text-align: center;
-        }
-
-        .hero-content {
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        .hero h1 {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-        }
-
-        .hero p {
-            font-size: 1.2rem;
-            margin-bottom: 2rem;
-            opacity: 0.9;
-        }
-
-        /* Популярные товары */
-        .featured-products {
-            padding: 3rem 2rem;
-            background-color: #f1f5f9;
-        }
-
-        .products-container {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .product-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 1.5rem;
-        }
-
-        .product-card {
-            background: white;
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
-            transition: all 0.3s;
-        }
-
-        .product-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-        }
-
-        .product-img {
-            height: 200px;
-            background-color: #eee;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #777;
-        }
-
-        .product-info {
-            padding: 1.5rem;
-        }
-
-        .product-info h3 {
-            margin-bottom: 0.5rem;
-        }
-
-        .product-price {
-            font-weight: bold;
-            color: #4a90e2;
-            font-size: 1.2rem;
-            margin: 0.5rem 0;
-        }
-
-        .product-rating {
-            color: #ffc107;
-            margin-bottom: 1rem;
-        }
-
-        .add-to-cart {
-            width: 100%;
-            padding: 0.5rem;
-            background-color: #4a90e2;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-
-        .add-to-cart:hover {
-            background-color: #3a7bc8;
-        }
-    </style>
-@endsection
 @section('content')
-    <!-- Герой-секция -->
-    <section class="hero">
-        <div class="hero-content">
-            <h1>Добро пожаловать в наш магазин</h1>
-            <p>Лучшие товары по доступным ценам с быстрой доставкой по всей стране</p>
-            <a href="{{ route('catalog') }}" class="btn btn-primary" style="background-color: white; color: #4a90e2;">Перейти
-                в каталог</a>
+    <!-- Hero Section -->
+    <section class="hero bg-primary text-white py-5">
+        <div class="container">
+            <div class="row justify-content-center text-center">
+                <div class="col-lg-8">
+                    <h1 class="display-4 fw-bold mb-4">Добро пожаловать в наш магазин</h1>
+                    <p class="lead mb-4">Лучшие товары по доступным ценам с быстрой доставкой по всей стране</p>
+                    <a href="{{ route('catalog') }}" class="btn btn-light btn-lg px-4">
+                        Перейти в каталог
+                    </a>
+                </div>
+            </div>
         </div>
     </section>
 
-    <!-- Популярные товары -->
-    <section class="featured-products">
-        <div class="products-container">
-            <h2 class="section-title">Популярные товары</h2>
+    <!-- Featured Products Section -->
+    <section class="py-5">
+        <div class="container">
+            <h2 class="text-center mb-5">Популярные товары</h2>
 
-            <div class="product-grid">
-
+            <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
                 @foreach($products as $product)
-                    <!-- Пример товара -->
-                    <div class="product-card">
-                        <div class="product-img">
-                            <a href="{{ route('product', $product->id) }}">
-                                <img src="{{ $product->name }}" alt="{{ $product->name }}"
-                                     style="max-width: 100%; max-height: 100%; object-fit: cover;">
-                            </a>
-                        </div>
-                        <div class="product-info">
-                            <h3>{{ $product->name }}</h3>
-                            <div class="product-price">{{ $product->price }} ₽</div>
-                            <div class="product-price">{{ $product->discount }} %</div>
-                            {{--                            <div class="product-rating">★★★★☆</div>--}}
-                            <form action="{{ route('cart.items.add', $product->id) }}" method="POST">
-                                @csrf
-                                <button class="add-to-cart" type="submit">В корзину</button>
-                            </form>
+                    <div class="col">
+                        <div class="card h-100 shadow-sm">
+                            <div class="card-img-top" style="height: 250px; overflow: hidden;">
+                                <a href="{{ route('product', $product->id) }}">
+                                    <img src="{{ $product->name }}" alt="{{ $product->name }}"
+                                         class="img-fluid w-100 h-100" style="object-fit: cover;">
+                                </a>
+                            </div>
+                            <div class="card-body d-flex flex-column">
+                                <h5 class="card-title">{{ $product->name }}</h5>
+                                <div class="mt-auto">
+                                    <div class="d-flex justify-content-between align-items-center mb-3">
+                                        <span class="h5 text-primary mb-0">{{ $product->price }} ₽</span>
+                                        @if($product->discount > 0)
+                                            <span class="badge bg-danger">-{{ $product->discount }}%</span>
+                                        @endif
+                                    </div>
+                                    <form action="{{ route('cart.items.add', $product->id) }}" method="POST">
+                                        @csrf
+                                        <button class="btn btn-primary w-100" type="submit">
+                                            В корзину
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 @endforeach
-
             </div>
         </div>
     </section>

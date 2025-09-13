@@ -1,76 +1,91 @@
 @extends('layouts.app')
-
 @section('title', 'О нас')
-
-@section('style')
-    <style>
-        .container {
-            max-width: 1000px;
-            margin: 20px auto;
-            padding: 0 20px;
-        }
-
-        h1, h2 {
-            color: #2c3e50;
-        }
-
-        .about-section {
-            margin-bottom: 40px;
-        }
-
-        .team {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 20px;
-        }
-
-        .team-member {
-            width: calc(50% - 10px);
-            margin-bottom: 20px;
-        }
-
-        @media (max-width: 600px) {
-            .team-member {
-                width: 100%;
-            }
-        }
-    </style>
-@endsection
 @section('content')
-    <div class="container">
-        <section class="about-section">
-            <h2>О нас</h2>
-            <p>Мы предлагаем широкий ассортимент товаров по доступным ценам с быстрой доставкой по всей стране.</p>
+    <div class="container py-5">
+        <!-- About Section -->
+        <section class="mb-5">
+            <div class="row justify-content-center">
+                <div class="col-lg-8 text-center">
+                    <h2 class="mb-4">О нас</h2>
+                    <p class="lead">Мы предлагаем широкий ассортимент товаров по доступным ценам с быстрой доставкой по всей стране.</p>
+                </div>
+            </div>
         </section>
 
-        <section class="about-section">
-            <h2>Наши принципы</h2>
-            <ul>
-                <li>Качество товаров - наш приоритет</li>
-                <li>Честные цены без скрытых платежей</li>
-                <li>Быстрая и надежная доставка</li>
-                <li>Профессиональная поддержка клиентов</li>
-            </ul>
+        <!-- Principles Section -->
+        <section class="mb-5">
+            <h2 class="text-center mb-4">Наши принципы</h2>
+            <div class="row">
+                <div class="col-md-6 col-lg-3 mb-4">
+                    <div class="card h-100 text-center border-0 shadow-sm">
+                        <div class="card-body">
+                            <h5 class="card-title">Качество товаров</h5>
+                            <p class="card-text">Качество товаров - наш приоритет</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3 mb-4">
+                    <div class="card h-100 text-center border-0 shadow-sm">
+                        <div class="card-body">
+                            <h5 class="card-title">Честные цены</h5>
+                            <p class="card-text">Честные цены без скрытых платежей</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3 mb-4">
+                    <div class="card h-100 text-center border-0 shadow-sm">
+                        <div class="card-body">
+                            <h5 class="card-title">Быстрая доставка</h5>
+                            <p class="card-text">Быстрая и надежная доставка</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3 mb-4">
+                    <div class="card h-100 text-center border-0 shadow-sm">
+                        <div class="card-body">
+                            <h5 class="card-title">Поддержка</h5>
+                            <p class="card-text">Профессиональная поддержка клиентов</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </section>
 
-        <section class="about-section">
-            <h2>Наша команда</h2>
-            <div class="team">
-                <div class="team-member">
-                    <h3>Иван Иванов</h3>
-                    <p>Основатель и директор</p>
+        <!-- Team Section -->
+        <section>
+            <h2 class="text-center mb-4">Наша команда</h2>
+            <div class="row">
+                <div class="col-md-6 col-lg-3 mb-4">
+                    <div class="card text-center border-0 shadow-sm">
+                        <div class="card-body">
+                            <h5 class="card-title">Иван Иванов</h5>
+                            <p class="card-text text-muted">Основатель и директор</p>
+                        </div>
+                    </div>
                 </div>
-                <div class="team-member">
-                    <h3>Константин Константинов</h3>
-                    <p>Менеджер по продажам</p>
+                <div class="col-md-6 col-lg-3 mb-4">
+                    <div class="card text-center border-0 shadow-sm">
+                        <div class="card-body">
+                            <h5 class="card-title">Константин Константинов</h5>
+                            <p class="card-text text-muted">Менеджер по продажам</p>
+                        </div>
+                    </div>
                 </div>
-                <div class="team-member">
-                    <h3>Пётр Петров</h3>
-                    <p>Технический специалист</p>
+                <div class="col-md-6 col-lg-3 mb-4">
+                    <div class="card text-center border-0 shadow-sm">
+                        <div class="card-body">
+                            <h5 class="card-title">Пётр Петров</h5>
+                            <p class="card-text text-muted">Технический специалист</p>
+                        </div>
+                    </div>
                 </div>
-                <div class="team-member">
-                    <h3>Олег Олегов</h3>
-                    <p>Служба поддержки</p>
+                <div class="col-md-6 col-lg-3 mb-4">
+                    <div class="card text-center border-0 shadow-sm">
+                        <div class="card-body">
+                            <h5 class="card-title">Олег Олегов</h5>
+                            <p class="card-text text-muted">Служба поддержки</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>

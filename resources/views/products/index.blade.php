@@ -1,218 +1,109 @@
 @extends('layouts.app')
 @section('title', 'Каталог')
-
-@section('style')
-    <style>
-        .container {
-            max-width: 1200px;
-            margin: 20px auto;
-            padding: 0 20px;
-        }
-
-        h1, h2, h3 {
-            color: #2c3e50;
-        }
-
-        .product-actions a {
-            text-decoration: none;
-            background: white;
-            border: 1px solid #4a90e2;
-            color: #4a90e2;
-        }
-
-        .catalog-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-
-        .categories {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 20px;
-            flex-wrap: wrap;
-        }
-
-        .category {
-            padding: 8px 16px;
-            background: #f0f0f0;
-            border-radius: 20px;
-            text-decoration: none;
-            color: #333;
-        }
-
-        .category.active {
-            background: #4a90e2;
-            color: white;
-        }
-
-        .products-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            gap: 20px;
-        }
-
-        .product-card {
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            padding: 15px;
-            transition: box-shadow 0.3s;
-        }
-
-        .product-card:hover {
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-        }
-
-        .product-image {
-            height: 180px;
-            background: #f5f5f5;
-            margin-bottom: 15px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #777;
-        }
-
-        .product-price {
-            font-weight: bold;
-            font-size: 1.2em;
-            color: #2c3e50;
-            margin: 10px 0;
-        }
-
-        .product-actions {
-            display: flex;
-            gap: 10px;
-        }
-
-        .btn {
-            padding: 8px 16px;
-            border-radius: 4px;
-            text-decoration: none;
-            cursor: pointer;
-        }
-
-        .btn-primary {
-            background: #4a90e2;
-            color: white;
-            border: none;
-            flex: 1;
-        }
-
-        .btn-primary:hover {
-            background: #3a7bc8;
-        }
-
-        .btn-outline {
-            background: white;
-            border: 1px solid #4a90e2;
-            color: #4a90e2;
-        }
-
-        .btn-outline:hover {
-            background: #f0f7ff;
-        }
-
-        .search-sort {
-            display: flex;
-            gap: 15px;
-            margin-bottom: 20px;
-        }
-
-        .search-box {
-            flex: 1;
-            padding: 8px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-        }
-
-        .sort-select {
-            padding: 8px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-        }
-
-        .pagination {
-            display: flex;
-            justify-content: center;
-            gap: 10px;
-            margin-top: 30px;
-        }
-
-        .page-link {
-            padding: 8px 12px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            text-decoration: none;
-            color: #333;
-        }
-
-        .page-link.active {
-            background: #4a90e2;
-            color: white;
-            border-color: #4a90e2;
-        }
-    </style>
-@endsection
-
 @section('content')
-    <div class="container">
-        <div class="catalog-header">
+    <div class="container py-4">
+        <!-- Заголовок -->
+        <div class="d-flex justify-content-between align-items-center mb-4">
             <h2>Все товары</h2>
-            <div>Найдено товаров {{ $counter }}</div>
+            <span class="text-muted">Найдено товаров {{ $counter }}</span>
         </div>
 
-        {{--    <div class="search-sort">--}}
-        {{--        <input type="text" class="search-box" placeholder="Поиск товаров...">--}}
-        {{--        <select class="sort-select">--}}
-        {{--            <option>Сортировка: по популярности</option>--}}
-        {{--            <option>По цене (сначала дешевые)</option>--}}
-        {{--            <option>По цене (сначала дорогие)</option>--}}
-        {{--            <option>По новизне</option>--}}
-        {{--        </select>--}}
-        {{--    </div>--}}
+        <!-- Поиск и фильтрация (заглушки для будущей реализации) -->
+        <div class="row mb-4">
+            <div class="col-md-8">
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Поиск товаров...">
+                    <button class="btn btn-outline-secondary" type="button">
+                        <i class="bi bi-search"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <select class="form-select">
+                    <option>Сортировка: по популярности</option>
+                    <option>По цене (сначала дешевые)</option>
+                    <option>По цене (сначала дорогие)</option>
+                    <option>По новизне</option>
+                </select>
+            </div>
+        </div>
 
-        <div class="categories">
-            <a href="{{ route('catalog') }}" class="category {{ $categoryName === null ? 'active' : ''}}">Все</a>
+        <!-- Категории -->
+        <div class="d-flex flex-wrap gap-2 mb-4">
+            <a href="{{ route('catalog') }}"
+               class="btn {{ $categoryName === null ? 'btn-primary' : 'btn-outline-primary' }}">
+                Все
+            </a>
             @foreach($categories as $category)
-                <a href="{{ route('catalog', $category->name) }}"
-                   class="category {{$categoryName === $category->name ? 'active' : ''}}">{{ $category->ru_name }}</a>
+                <a href="{{ route('catalog', $category->name ) }}"
+                   class="btn {{ $categoryName === $category->name ? 'btn-primary' : 'btn-outline-primary' }}">
+                    {{ $category->ru_name }}
+                </a>
             @endforeach
         </div>
 
-        <div class="products-grid">
-            <!-- Товар 1 -->
+        <!-- Сетка товаров -->
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4 mb-5">
             @foreach($products as $product)
-                <div class="product-card">
-                    <div class="product-image">
-                        <a href="{{ route('product', $product->id) }}">
-                            <img src="{{ $product->name }}" alt="{{ $product->name }}"
-                                 style="max-width: 100%; max-height: 100%; object-fit: cover;">
-                        </a>
-                    </div>
-                    <h3>{{ $product->name }}</h3>
-                    <div class="product-price">{{ number_format($product->calculateDiscountedPrice(), 0, '', ' ') }}₽
-                    </div>
-                    <div class="product-price">{{ $product->discount }} %</div>
-                    <div class="product-actions">
-                        <form action="{{ route('cart.items.add', $product->id) }}" method="POST">
-                            @csrf
-                            <button class="btn btn-primary">В корзину</button>
-                        </form>
-                        <a href="{{ route('product', $product->id) }}" class="btn-outline">Подробнее</a>
+                <div class="col">
+                    <div class="card h-100 shadow-sm">
+                        <!-- Изображение товара -->
+                        <div style="height: 200px; overflow: hidden;">
+                            <a href="{{ route('product', $product->id) }}">
+                                <img src="{{ $product->name }}" alt="{{ $product->name }}"
+                                     class="card-img-top h-100" style="object-fit: cover;">
+                            </a>
+                        </div>
+
+                        <div class="card-body d-flex flex-column">
+                            <!-- Название товара -->
+                            <h5 class="card-title">
+                                <a href="{{ route('product', $product->id) }}"
+                                   class="text-decoration-none text-dark">
+                                    {{ $product->name }}
+                                </a>
+                            </h5>
+
+                            <!-- Цена и скидка -->
+                            <div class="mt-auto">
+                                <div class="d-flex justify-content-between align-items-center mb-2">
+                                    <span class="h5 text-primary mb-0">
+                                        {{ number_format($product->calculateDiscountedPrice(), 0, '', ' ') }}₽
+                                    </span>
+                                    @if($product->discount > 0)
+                                        <span class="badge bg-danger">-{{ $product->discount }}%</span>
+                                    @endif
+                                </div>
+
+                                <!-- Кнопки действий -->
+                                <div class="d-flex gap-2">
+                                    <form action="{{ route('cart.items.add', $product->id) }}" method="POST" class="flex-grow-1">
+                                        @csrf
+                                        <button class="btn btn-primary w-100">В корзину</button>
+                                    </form>
+                                    <a href="{{ route('product', $product->id) }}"
+                                       class="btn btn-outline-primary">→</a>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             @endforeach
         </div>
 
-        {{--    <div class="pagination">--}}
-        {{--        <a href="#" class="page-link">1</a>--}}
-        {{--        <a href="#" class="page-link active">2</a>--}}
-        {{--        <a href="#" class="page-link">3</a>--}}
-        {{--        <a href="#" class="page-link">4</a>--}}
-        {{--        <a href="#" class="page-link">5</a>--}}
-        {{--        <a href="#" class="page-link">→</a>--}}
-        {{--    </div>--}}
+        <!-- Пагинация (заглушка для будущей реализации) -->
+        <nav aria-label="Page navigation">
+            <ul class="pagination justify-content-center">
+                <li class="page-item disabled">
+                    <a class="page-link" href="#" tabindex="-1">Предыдущая</a>
+                </li>
+                <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                <li class="page-item">
+                    <a class="page-link" href="#">Следующая</a>
+                </li>
+            </ul>
+        </nav>
     </div>
 @endsection

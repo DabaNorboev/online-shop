@@ -1,62 +1,46 @@
 @extends('layouts.auth')
+@section('title', 'Вход в аккаунт')
 @section('style')
     <style>
-        .login-btn {
-            width: 100%;
-            padding: 0.75rem;
-            background-color: #4a90e2;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            font-size: 1rem;
-            cursor: pointer;
-            margin-top: 1rem;
-            transition: background-color 0.3s;
-        }
-
-        .login-btn:hover {
-            background-color: #3a7bc8;
-        }
-
-        .register-link {
-            display: block;
-            text-align: center;
-            margin-top: 1.5rem;
-            color: #666;
-        }
-
-        .register-link a {
-            color: #4a90e2;
-            text-decoration: none;
-        }
-
-        .register-link a:hover {
-            text-decoration: underline;
+        .auth-header {
+            margin-bottom: 1.5rem;
         }
     </style>
 @endsection
 @section('content')
-    <div class="auth-header">
-        <h1>Вход в магазин</h1>
-        <p>Пожалуйста, авторизуйтесь для продолжения</p>
+    <div class="auth-header text-center">
+        <h1 class="h3 mb-2 fw-normal">Вход в магазин</h1>
+        <p class="text-muted">Пожалуйста, авторизуйтесь для продолжения</p>
     </div>
 
-    <form class="auth-form" method="POST" action="{{ route('login') }}">
+    <form method="POST" action="{{ route('login') }}">
         @csrf
-        <div class="form-group">
+
+        <div class="form-floating mb-2">
+            <input type="email" class="form-control @error('email') is-invalid @enderror"
+                   id="email" name="email" placeholder="name@example.com"
+                   value="{{ old('email') }}" required autofocus>
             <label for="email">Email</label>
-            <input type="email" id="email" name="email" required autofocus>
+            @error('email')
+            <div class="invalid-feedback">{{ $message }}</div>
+            @enderror
         </div>
 
-        <div class="form-group">
+        <div class="form-floating mb-3">
+            <input type="password" class="form-control @error('password') is-invalid @enderror"
+                   id="password" name="password" placeholder="Пароль" required>
             <label for="password">Пароль</label>
-            <input type="password" id="password" name="password" required>
+            @error('password')
+            <div class="invalid-feedback">{{ $message }}</div>
+            @enderror
         </div>
 
-        <button type="submit" class="login-btn">Войти</button>
+        <button type="submit" class="w-100 btn btn-lg btn-primary">Войти</button>
     </form>
 
-    <div class="register-link">
-        Нет аккаунта? <a href="{{ route('register.form') }}">Зарегистрироваться</a>
+    <div class="text-center mt-3">
+        <p class="text-muted">Нет аккаунта?
+            <a href="{{ route('register.form') }}" class="text-decoration-none">Зарегистрироваться</a>
+        </p>
     </div>
 @endsection

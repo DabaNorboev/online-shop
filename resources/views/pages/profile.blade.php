@@ -1,358 +1,159 @@
 @extends('layouts.app')
 @section('title', 'Профиль пользователя')
-
-@section('style')
-    <style>
-        .container {
-            max-width: 1000px;
-            margin: 20px auto;
-            padding: 0 20px;
-        }
-
-        .form-container {
-            display: flex;
-            gap: 10px;
-        }
-
-        .form-container section {
-            flex: 1;
-            min-width: 0;
-        }
-
-        h1, h2 {
-            color: #2c3e50;
-        }
-
-        .profile-section {
-            margin-bottom: 40px;
-        }
-
-        .profile-header {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-            margin-bottom: 20px;
-        }
-
-        .user-info {
-            flex: 1;
-        }
-
-        .btn {
-            display: inline-block;
-            padding: 8px 16px;
-            background: #4a90e2;
-            color: white;
-            text-decoration: none;
-            border-radius: 4px;
-            margin-top: 10px;
-        }
-
-        .btn:hover {
-            background: #3a7bc8;
-        }
-
-        .form-group {
-            margin-bottom: 15px;
-        }
-
-        label {
-            display: block;
-            margin-bottom: 5px;
-        }
-
-        input {
-            width: 100%;
-            max-width: 400px;
-            padding: 8px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-        }
-
-        .alert {
-            color: red;
-        }
-
-        /* Общие стили секции */
-        .profile-section {
-            max-width: 1000px;
-            margin: 0 auto;
-            padding: 2rem;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            color: #333;
-        }
-
-        .profile-section h2 {
-            font-size: 1.8rem;
-            margin-bottom: 1.5rem;
-            color: #2c3e50;
-            border-bottom: 2px solid #3498db;
-            padding-bottom: 0.5rem;
-        }
-
-        /* Стили списка заказов */
-        .orders-list {
-            display: flex;
-            flex-direction: column;
-            gap: 1.5rem;
-        }
-
-        /* Стили карточки заказа */
-        .order-item {
-            background: white;
-            border-radius: 10px;
-            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
-            overflow: hidden;
-            transition: all 0.3s ease;
-            border: 1px solid #e0e0e0;
-        }
-
-        .order-item:hover {
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            transform: translateY(-2px);
-        }
-
-        /* Стили заголовка заказа */
-        .order-item summary {
-            padding: 1.5rem;
-            cursor: pointer;
-            list-style: none;
-            position: relative;
-        }
-
-        .order-item summary::-webkit-details-marker {
-            display: none;
-        }
-
-        .order-item summary:focus {
-            outline: none;
-        }
-
-        .order-item summary h3 {
-            font-size: 1.3rem;
-            margin: 0;
-            color: #3498db;
-            display: inline;
-        }
-
-        /* Индикатор открытия/закрытия */
-        .order-item summary::after {
-            content: '+';
-            position: absolute;
-            right: 1.5rem;
-            top: 50%;
-            transform: translateY(-50%);
-            font-size: 1.5rem;
-            color: #3498db;
-            transition: all 0.3s ease;
-        }
-
-        .order-item[open] summary::after {
-            content: '-';
-        }
-
-        /* Краткая информация о заказе */
-        .order-summary {
-            display: flex;
-            gap: 2rem;
-            margin-top: 1rem;
-            flex-wrap: wrap;
-        }
-
-        .order-summary p {
-            margin: 0.5rem 0;
-            font-size: 0.95rem;
-            display: flex;
-            align-items: center;
-        }
-
-        /* Стили статуса заказа */
-        .order-status {
-            padding: 0.3rem 0.8rem;
-            border-radius: 20px;
-            font-size: 0.85rem;
-            font-weight: 500;
-            margin-left: 0.5rem;
-        }
-
-        .status-new {
-            background: #f39c12;
-            color: white;
-        }
-
-        .status-processing {
-            background: #3498db;
-            color: white;
-        }
-
-        .status-completed {
-            background: #2ecc71;
-            color: white;
-        }
-
-        .status-cancelled {
-            background: #e74c3c;
-            color: white;
-        }
-
-        /* Детали заказа */
-        .order-details {
-            padding: 0 1.5rem 1.5rem;
-            background: #f9f9f9;
-            border-top: 1px solid #eee;
-            animation: fadeIn 0.3s ease;
-        }
-
-        .order-details h4 {
-            margin: 1rem 0 0.5rem;
-            color: #2c3e50;
-            font-size: 1.1rem;
-        }
-
-        /* Список товаров */
-        .order-details ul {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-            display: flex;
-            flex-direction: column;
-            gap: 0.5rem;
-        }
-
-        .order-details li {
-            padding: 0.8rem;
-            background: white;
-            border-radius: 5px;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
-            display: flex;
-            justify-content: space-between;
-            transition: all 0.2s ease;
-        }
-
-        .order-details li:hover {
-            background: #f0f7ff;
-            transform: translateX(5px);
-        }
-
-        /* Анимации */
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(-10px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-    </style>
-@endsection
-
 @section('content')
-    <div class="container">
-        <section class="profile-section">
-            <div class="profile-header">
-                <div class="user-info">
-                    <h2>{{ $user->first_name }} {{ $user->last_name }}</h2>
-                    <p>Пользователь с {{ $user->created_at->format('d.m.Y') }}</p>
+    <div class="container py-4">
+        <!-- Profile Header -->
+        <div class="row mb-5">
+            <div class="col-12">
+                <div class="d-flex align-items-center">
+                    <div class="flex-grow-1">
+                        <h1 class="h2">{{ $user->first_name }} {{ $user->last_name }}</h1>
+                        <p class="text-muted">Пользователь с {{ $user->created_at->format('d.m.Y') }}</p>
+                    </div>
                 </div>
             </div>
-        </section>
-
-        <div class="form-container">
-            <section class="profile-section">
-                <h2>Личные данные</h2>
-                <form action="{{ route('profile.update') }}" method="POST">
-                    @method('PUT')
-                    @csrf
-                    <div class="form-group">
-                        <label for="last_name">Фамилия</label>
-                        <input type="text" id="last_name" name="last_name" value="{{ $user->last_name }}">
-                        @error('last_name')
-                        <span class="alert">{{ $message }}</span>
-                        @enderror
-                    </div>
-                    <div class="form-group">
-                        <label for="first_name">Имя</label>
-                        <input type="text" id="first_name" name="first_name" value="{{ $user->first_name }}">
-                        @error('first_name')
-                        <span class="alert">{{ $message }}</span>
-                        @enderror
-                    </div>
-                    <div class="form-group">
-                        <label for="email">Email</label>
-                        <input type="email" id="email" name="email" value="{{ $user->email }}">
-                        @error('email')
-                        <span class="alert">{{ $message }}</span>
-                        @enderror
-                    </div>
-                    <button type="submit" class="btn">Сохранить изменения</button>
-                </form>
-            </section>
-            <section class="profile-section">
-                <h2>Безопасность</h2>
-                <form action="{{ route('profile.password.update') }}" method="POST">
-                    @method('PUT')
-                    @csrf
-                    <div class="form-group">
-                        <label for="old_password">Текущий пароль</label>
-                        <input type="password" id="old_password" name="old_password" required>
-                        @error('old_password')
-                        <span class="alert">{{ $message }}</span>
-                        @enderror
-                    </div>
-                    <div class="form-group">
-                        <label for="password">Новый пароль</label>
-                        <input type="password" id="password" name="password" required>
-                        @error('password')
-                        <span class="alert">{{ $message }}</span>
-                        @enderror
-                    </div>
-                    <div class="form-group">
-                        <label for="password_confirmation">Подтверждение пароля</label>
-                        <input type="password" id="password_confirmation" name="password_confirmation" required>
-                        @error('password_confirmation')
-                        <span class="alert">{{ $message }}</span>
-                        @enderror
-                    </div>
-                    <button type="submit" class="btn">Изменить пароль</button>
-                </form>
-            </section>
         </div>
 
-        <section class="profile-section">
-            <h2>Мои заказы</h2>
-            <div class="orders-list">
-                @foreach($orders as $order)
-                    <details class="order-item">
-                        <summary>
-                            <h3>Заказ #{{ $order->id }} от {{ $order->created_at->format('d.m.Y H:i') }}</h3>
-                            <div class="order-summary">
-                                <p>Количество товаров: {{ $order->orderItems->sum('quantity') }}</p>
-                                <p>Сумма: {{ number_format($order->total_price, 0, '', ' ') }}₽</p>
-                                <p>Статус:
-                                    <span
-                                        class="order-status status-{{ $order->status->name }}">{{ $order->status->ru_name }}</span>
-                                </p>
+        <!-- Profile Forms -->
+        <div class="row g-4">
+            <!-- Personal Data Form -->
+            <div class="col-lg-6">
+                <div class="card shadow-sm">
+                    <div class="card-header bg-white">
+                        <h5 class="card-title mb-0">Личные данные</h5>
+                    </div>
+                    <div class="card-body">
+                        <form action="{{ route('profile.update') }}" method="POST">
+                            @method('PUT')
+                            @csrf
+                            <div class="mb-3">
+                                <label for="last_name" class="form-label">Фамилия</label>
+                                <input type="text" class="form-control @error('last_name') is-invalid @enderror"
+                                       id="last_name" name="last_name" value="{{ $user->last_name }}">
+                                @error('last_name')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
                             </div>
-                        </summary>
-
-                        <div class="order-details">
-                            <h4>Состав заказа:</h4>
-                            <ul>
-                                @foreach($order->orderItems as $item)
-                                    <li>
-                                        <a href="{{ route('product', $item->product->id) }}">{{ $item->product->name }}</a> ×
-                                        {{ $item->quantity }}
-                                        =
-                                        {{ number_format($item->total_price, 0, '', ' ') }}₽
-                                    </li>
-                                @endforeach
-                            </ul>
-                        </div>
-                    </details>
-                @endforeach
+                            <div class="mb-3">
+                                <label for="first_name" class="form-label">Имя</label>
+                                <input type="text" class="form-control @error('first_name') is-invalid @enderror"
+                                       id="first_name" name="first_name" value="{{ $user->first_name }}">
+                                @error('first_name')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+                            <div class="mb-3">
+                                <label for="email" class="form-label">Email</label>
+                                <input type="email" class="form-control @error('email') is-invalid @enderror"
+                                       id="email" name="email" value="{{ $user->email }}">
+                                @error('email')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+                            <button type="submit" class="btn btn-primary">Сохранить изменения</button>
+                        </form>
+                    </div>
+                </div>
             </div>
-        </section>
+
+            <!-- Security Form -->
+            <div class="col-lg-6">
+                <div class="card shadow-sm">
+                    <div class="card-header bg-white">
+                        <h5 class="card-title mb-0">Безопасность</h5>
+                    </div>
+                    <div class="card-body">
+                        <form action="{{ route('profile.password.update') }}" method="POST">
+                            @method('PUT')
+                            @csrf
+                            <div class="mb-3">
+                                <label for="old_password" class="form-label">Текущий пароль</label>
+                                <input type="password" class="form-control @error('old_password') is-invalid @enderror"
+                                       id="old_password" name="old_password" required>
+                                @error('old_password')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+                            <div class="mb-3">
+                                <label for="password" class="form-label">Новый пароль</label>
+                                <input type="password" class="form-control @error('password') is-invalid @enderror"
+                                       id="password" name="password" required>
+                                @error('password')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+                            <div class="mb-3">
+                                <label for="password_confirmation" class="form-label">Подтверждение пароля</label>
+                                <input type="password" class="form-control @error('password_confirmation') is-invalid @enderror"
+                                       id="password_confirmation" name="password_confirmation" required>
+                                @error('password_confirmation')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+                            <button type="submit" class="btn btn-primary">Изменить пароль</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Orders Section -->
+        <div class="row mt-4">
+            <div class="col-12">
+                <div class="card shadow-sm">
+                    <div class="card-header bg-white">
+                        <h5 class="card-title mb-0">Мои заказы</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="accordion" id="ordersAccordion">
+                            @foreach($orders as $order)
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header" id="heading{{ $order->id }}">
+                                        <button class="accordion-button collapsed" type="button"
+                                                data-bs-toggle="collapse" data-bs-target="#collapse{{ $order->id }}"
+                                                aria-expanded="false" aria-controls="collapse{{ $order->id }}">
+                                            <div class="d-flex justify-content-between w-100 me-3">
+                                                <span>Заказ #{{ $order->id }} от {{ $order->created_at->format('d.m.Y H:i') }}</span>
+                                                <span class="badge bg-{{ $order->status->name === 'completed' ? 'success' : ($order->status->name === 'cancelled' ? 'danger' : 'warning') }}">
+                                                    {{ $order->status->ru_name }}
+                                                </span>
+                                            </div>
+                                        </button>
+                                    </h2>
+                                    <div id="collapse{{ $order->id }}" class="accordion-collapse collapse"
+                                         aria-labelledby="heading{{ $order->id }}" data-bs-parent="#ordersAccordion">
+                                        <div class="accordion-body">
+                                            <div class="row mb-3">
+                                                <div class="col-md-6">
+                                                    <strong>Количество товаров:</strong> {{ $order->orderItems->sum('quantity') }}
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <strong>Сумма:</strong> {{ number_format($order->total_price, 0, '', ' ') }}₽
+                                                </div>
+                                            </div>
+                                            <h6>Состав заказа:</h6>
+                                            <div class="list-group">
+                                                @foreach($order->orderItems as $item)
+                                                    <div class="list-group-item">
+                                                        <div class="d-flex justify-content-between align-items-center">
+                                                            <a href="{{ route('product', $item->product->id) }}" class="text-decoration-none">
+                                                                {{ $item->product->name }}
+                                                            </a>
+                                                            <span>
+                                                                × {{ $item->quantity }} = {{ number_format($item->total_price, 0, '', ' ') }}₽
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                @endforeach
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endforeach
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 @endsection

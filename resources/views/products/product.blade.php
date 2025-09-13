@@ -1,279 +1,125 @@
 @extends('layouts.app')
-
-@section('title', 'sdff')
-
-@section('style')
-    <style>
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 15px;
-        }
-
-        .breadcrumbs a {
-            color: #4a90e2;
-            text-decoration: none;
-        }
-
-        .product-container {
-            display: flex;
-            margin: 20px 0 40px;
-            background: #fff;
-            padding: 20px;
-            border-radius: 5px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
-        }
-
-        .product-gallery {
-            width: 50%;
-            padding-right: 20px;
-        }
-
-        .main-image {
-            width: 100%;
-            height: 400px;
-            background-color: #f5f5f5;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 10px;
-            border: 1px solid #eee;
-        }
-
-        .thumbnails {
-            display: flex;
-            gap: 10px;
-        }
-
-        .thumbnail {
-            width: 70px;
-            height: 70px;
-            background-color: #f5f5f5;
-            border: 1px solid #ddd;
-            cursor: pointer;
-        }
-
-        .product-info {
-            width: 50%;
-            padding-left: 20px;
-        }
-
-        .product-title {
-            font-size: 24px;
-            margin-bottom: 10px;
-            color: #2c3e50;
-        }
-
-        .rating {
-            display: flex;
-            align-items: center;
-            margin-bottom: 15px;
-        }
-
-        .stars {
-            color: #ffc107;
-            margin-right: 10px;
-        }
-
-        .reviews-link {
-            color: #4a90e2;
-            text-decoration: none;
-            font-size: 14px;
-        }
-
-        .price-container {
-            margin: 20px 0;
-            padding: 15px;
-            background: #f8f9fa;
-            border-radius: 5px;
-        }
-
-        .current-price {
-            font-size: 28px;
-            font-weight: bold;
-            color: #d32f2f;
-        }
-
-        .price {
-            font-size: 28px;
-            font-weight: bold;
-        }
-
-
-        .old-price {
-            text-decoration: line-through;
-            color: #777;
-            margin-left: 10px;
-        }
-
-        .availability {
-            color: #388e3c;
-            font-weight: bold;
-            margin: 10px 0;
-        }
-
-        .not-availability {
-            color: #b80707;
-            font-weight: bold;
-            margin: 10px 0;
-        }
-
-        .actions {
-            display: flex;
-            gap: 10px;
-            margin: 20px 0;
-        }
-
-        .btn {
-            padding: 12px 20px;
-            border-radius: 4px;
-            font-weight: bold;
-            cursor: pointer;
-            border: none;
-            font-size: 16px;
-        }
-
-        .btn-primary {
-            background: #4a90e2;
-            color: white;
-            flex: 2;
-        }
-
-        .quantity-control {
-            display: flex;
-            align-items: center;
-            margin: 15px 0;
-        }
-
-        .quantity-btn {
-            width: 30px;
-            height: 30px;
-            background: #f0f0f0;
-            border: none;
-            font-size: 16px;
-            cursor: pointer;
-        }
-
-        .quantity-input {
-            width: 50px;
-            height: 30px;
-            text-align: center;
-            margin: 0 5px;
-            border: 1px solid #ddd;
-        }
-
-        .tabs {
-            margin: 30px 0;
-        }
-
-        .tab-header {
-            display: flex;
-            border-bottom: 1px solid #ddd;
-        }
-
-        .tab-btn {
-            padding: 10px 20px;
-            cursor: pointer;
-            background: none;
-            border: none;
-            border-bottom: 3px solid transparent;
-        }
-
-        .tab-btn.active {
-            border-bottom-color: #4a90e2;
-            font-weight: bold;
-        }
-
-        .tab-content {
-            padding: 20px 0;
-            display: none;
-        }
-
-        .tab-content.active {
-            display: block;
-        }
-    </style>
-@endsection
+@section('title', $product->name)
 @section('content')
-    <div class="container">
-        <div class="product-container">
-            <div class="product-gallery">
-                <div class="main-image">
-                    [Основное фото товара]
-                </div>
-                <div class="thumbnails">
-                    <div class="thumbnail"></div>
-                    <div class="thumbnail"></div>
-                    <div class="thumbnail"></div>
-                    <div class="thumbnail"></div>
+    <div class="container py-4">
+        <!-- Хлебные крошки -->
+        <nav aria-label="breadcrumb" class="mb-4">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{{ route('main') }}">Главная</a></li>
+                <li class="breadcrumb-item"><a href="{{ route('catalog') }}">Каталог</a></li>
+                <li class="breadcrumb-item active">{{ $product->name }}</li>
+            </ol>
+        </nav>
+
+        <div class="row">
+            <!-- Галерея товара -->
+            <div class="col-md-6 mb-4">
+                <div class="card shadow-sm">
+                    <div class="card-body text-center">
+                        <div class="mb-3" style="height: 400px; background: #f8f9fa; display: flex; align-items: center; justify-content: center;">
+                            [Основное фото товара]
+                        </div>
+                        <div class="d-flex gap-2 justify-content-center">
+                            <div style="width: 70px; height: 70px; background: #f8f9fa; border: 1px solid #dee2e6;"></div>
+                            <div style="width: 70px; height: 70px; background: #f8f9fa; border: 1px solid #dee2e6;"></div>
+                            <div style="width: 70px; height: 70px; background: #f8f9fa; border: 1px solid #dee2e6;"></div>
+                        </div>
+                    </div>
                 </div>
             </div>
 
-            <div class="product-info">
-                <h1 class="product-title">{{ $product->name }}</h1>
+            <!-- Информация о товаре -->
+            <div class="col-md-6">
+                <div class="card shadow-sm">
+                    <div class="card-body">
+                        <h1 class="h2 mb-3">{{ $product->name }}</h1>
 
-                <div class="rating">
-                    <div class="stars">★★★★☆</div>
-                    <a href="#reviews" class="reviews-link">42 отзыва</a>
-                </div>
-
-                <div class="price-container">
-                    @if($product->discount > 0)
-                        <div class="current-price">{{number_format($product->calculateDiscountedPrice(), 0, '', ' ')}}
-                            ₽
+                        <!-- Рейтинг -->
+                        <div class="d-flex align-items-center mb-3">
+                            <div class="text-warning me-2">
+                                ★★★★☆
+                            </div>
+                            <a href="#reviews" class="text-decoration-none small">42 отзыва</a>
                         </div>
-                        <span class="old-price">{{ number_format($product->price, 0, '', ' ') }} ₽</span>
-                    @else
-                        <div class="price">{{number_format($product->calculateDiscountedPrice(), 0, '', ' ')}} ₽</div>
-                    @endif
-                    @if($product->stock_quantity > 0)
-                        <div class="availability">В наличии</div>
-                    @else
-                        <div class="not-availability">Нет в наличии</div>
-                    @endif
 
-                </div>
+                        <!-- Цена и наличие -->
+                        <div class="bg-light p-3 rounded mb-4">
+                            @if($product->discount > 0)
+                                <div class="d-flex align-items-center mb-2">
+                                    <span class="h3 text-danger me-3">
+                                        {{ number_format($product->calculateDiscountedPrice(), 0, '', ' ') }}₽
+                                    </span>
+                                    <span class="text-muted text-decoration-line-through">
+                                        {{ number_format($product->price, 0, '', ' ') }}₽
+                                    </span>
+                                </div>
+                            @else
+                                <div class="h3 text-primary mb-2">
+                                    {{ number_format($product->calculateDiscountedPrice(), 0, '', ' ') }}₽
+                                </div>
+                            @endif
 
-                <div class="item-actions">
-                    <div class="quantity-control">
+                            @if($product->stock_quantity > 0)
+                                <span class="badge bg-success">В наличии</span>
+                            @else
+                                <span class="badge bg-danger">Нет в наличии</span>
+                            @endif
+                        </div>
+
+                        <!-- Форма добавления в корзину -->
                         <form action="{{ route('cart.items.add', $product->id) }}" method="POST">
                             @csrf
-                            <div class="mb-3">
-                                <label for="quantity" class="form-label">Количество:</label>
-                                <input type="number" value="1" min="1" max="{{ $product->stock_quantity }}" required
-                                       id="quantity" name="quantity" class="quantity-input"
-                                       style="width: 100px; margin-bottom: 20px;">
+                            <div class="row g-3 align-items-end mb-4">
+                                <div class="col-auto">
+                                    <label for="quantity" class="form-label">Количество:</label>
+                                    <input type="number" value="1" min="1" max="{{ $product->stock_quantity }}"
+                                           required id="quantity" name="quantity"
+                                           class="form-control" style="width: 100px;">
+                                </div>
+                                <div class="col">
+                                    <button class="btn btn-primary w-100" type="submit"
+                                        {{ $product->stock_quantity == 0 ? 'disabled' : '' }}>
+                                        {{ $product->stock_quantity > 0 ? 'Добавить в корзину' : 'Нет в наличии' }}
+                                    </button>
+                                </div>
                             </div>
-                            <button class="btn btn-primary" type="submit">Добавить в корзину</button>
                         </form>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="tabs">
-            <div class="tab-header">
-                <button class="tab-btn active">Описание</button>
-                <button class="tab-btn">Отзывы</button>
-            </div>
+        <!-- Табы с дополнительной информацией -->
+        <div class="mt-5">
+            <ul class="nav nav-tabs" id="productTabs" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link active" id="description-tab" data-bs-toggle="tab"
+                            data-bs-target="#description" type="button" role="tab">
+                        Описание
+                    </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="reviews-tab" data-bs-toggle="tab"
+                            data-bs-target="#reviews" type="button" role="tab">
+                        Отзывы
+                    </button>
+                </li>
+            </ul>
 
-            <div class="tab-content active">
-                <h3>Описание товара</h3>
-                <p>XYZ 10 Pro - это флагманский смартфон с самым современным набором функций. Мощный процессор
-                    Snapdragon 888 обеспечивает молниеносную работу любых приложений, а AMOLED-экран с частотой
-                    обновления 120 Гц дарит невероятно плавную картинку.</p>
-                <p>Тройная камера с основным сенсором на 108 Мп позволяет делать профессиональные фотографии в любых
-                    условиях. Большой аккумулятор на 5000 мАч обеспечивает до 2 дней работы без подзарядки.</p>
-            </div>
+            <div class="tab-content p-4 border border-top-0 rounded-bottom">
+                <div class="tab-pane fade show active" id="description" role="tabpanel">
+                    <h3>Описание товара</h3>
+                    <p>XYZ 10 Pro - это флагманский смартфон с самым современным набором функций. Мощный процессор
+                        Snapdragon 888 обеспечивает молниеносную работу любых приложений, а AMOLED-экран с частотой
+                        обновления 120 Гц дарит невероятно плавную картинку.</p>
+                    <p>Тройная камера с основным сенсором на 108 Мп позволяет делать профессиональные фотографии в любых
+                        условиях. Большой аккумулятор на 5000 мАч обеспечивает до 2 дней работы без подзарядки.</p>
+                </div>
 
-            <div class="tab-content" id="reviews">
-                <h3>Отзывы о товаре</h3>
-                <p>Здесь будут отображаться отзывы покупателей</p>
-            </div>
-
-            <div class="tab-content">
-                <h3>Доставка и оплата</h3>
-                <p>Информация о способах доставки и оплаты</p>
+                <div class="tab-pane fade" id="reviews" role="tabpanel">
+                    <h3>Отзывы о товаре</h3>
+                    <p>Здесь будут отображаться отзывы покупателей</p>
+                </div>
             </div>
         </div>
     </div>
